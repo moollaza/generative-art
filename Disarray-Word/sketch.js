@@ -1,5 +1,5 @@
 // Vars
-let size, squareSize, row, col;
+let size, squareSize, row, col, textFontFace;
 
 let colors = {};
 
@@ -25,6 +25,13 @@ const rows = 20;
 const rotateMultiplier = 25;
 const randomDisplacement = 15;
 
+// Loading font
+function preload() {
+  textFontFace = loadFont(
+    "https://cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/fonts/hack-bold.woff"
+  );
+}
+
 function setup() {
   size = windowWidth * 0.8;
   squareSize = floor(size / rows);
@@ -47,9 +54,9 @@ function setup() {
   rectMode(CENTER);
   noFill();
 
-  textFont("Helvetica");
+  textFont(textFontFace);
   textSize(squareSize);
-  textStyle(BOLD);
+  // textStyle(BOLD);
   textAlign(CENTER, CENTER);
 
   // Must be last line
