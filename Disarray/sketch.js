@@ -1,25 +1,39 @@
-let size;
-let squareSize;
+// Vars
+let size, squareSize;
 
-const randomDisplacement = 5;
-const rotateMultiplier = 1;
+let colors = {};
+
+const palettes = {
+  a: { bg: "03071e", from: "ffba08", to: "9d0208" },
+  b: { bg: "10002b", from: "e0aaff", to: "240046" },
+  c: { bg: "ffca3a", from: "1982c4", to: "ff595e" },
+  d: { bg: "8d0801", from: "f4d58d", to: "001427" },
+  e: { bg: "455e89", from: "5c4d7d", to: "a01a58" },
+};
+
+const palette = palettes.a;
+
+// Consts
+const cols = 20;
+const rotateMultiplier = 25;
+const randomDisplacement = 15;
 const offset = 2;
 
-let from, to;
-
 function setup() {
-  size = windowWidth * 0.75;
-  squareSize = floor(size / 20);
+  size = windowWidth * 0.8;
+  squareSize = floor(size / cols);
 
   createCanvas(size, size);
 
-  bClr = color("#151515");
-  fClr = color("orange");
-  tClr = color(72, 61, 139);
+  colors.bg = color(`#${palette.bg}`);
+  colors.from = color(`#${palette.from}`);
+  colors.to = color(`#${palette.to}`);
 
-  background(bClr);
+  background(colors.bg);
   strokeWeight(2);
   strokeCap(SQUARE);
+
+  angleMode(DEGREES);
 
   rectMode(CENTER);
   noFill();
@@ -30,27 +44,28 @@ function setup() {
 
 function draw() {
   for (let i = squareSize; i <= size - squareSize; i += squareSize) {
+    console.group(i);
     for (let j = squareSize; j <= size - squareSize; j += squareSize) {
-      //let f = lerpColor(color(bClr), fClr, (i-squareSize)/size);
-      //let t = lerpColor(tClr, color(bClr), (i-squareSize)/size);
-      let clr = lerpColor(fClr, tClr, (j - squareSize) / size);
-      //clr.setAlpha(255*(j/size));
+      const amt = map(j, squareSize, size, 0, 1);
+      print(j / size, amt);
+
+      const clr = lerpColor(colors.from, colors.to, amt);
       stroke(clr);
       drawSquare(i, j);
     }
+    console.groupEnd();
   }
 }
 
 function drawSquare(x, y) {
-  angleMode(DEGREES);
   plusOrMinus = random() < 0.5 ? -1 : 1;
-  const rotateAmt =
-    (y / size) * 5 * plusOrMinus * random() * randomDisplacement;
+  const rotateAmt = (y / size) * plusOrMinus * random() * rotateMultiplier;
 
-  //const translateAmt = y / size * plusOrMinus * random(0) * randomDisplacement;
+  plusOrMinus = random() < 0.5 ? -1 : 1;
+  const translateAmt = (y / size) * plusOrMinus * random() * randomDisplacement;
 
   push();
-  translate(x, y);
+  translate(x + translateAmt, y);
   rotate(rotateAmt);
   translate(-x, -y);
   square(x, y, squareSize);
