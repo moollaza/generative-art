@@ -1,13 +1,16 @@
-const squareSize = 75;
+let size;
+let squareSize;
 
 const randomDisplacement = 5;
 const rotateMultiplier = 1;
 const offset = 2;
-const size = 1000;
 
 let from, to;
 
 function setup() {
+  size = windowWidth * 0.75;
+  squareSize = floor(size / 20);
+
   createCanvas(size, size);
 
   bClr = color("#151515");
