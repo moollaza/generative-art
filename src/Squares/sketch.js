@@ -1,5 +1,5 @@
 // Vars
-let size, squareSize, row, col, textFontFace;
+let size, squareSize, row, col;
 
 let colors = {};
 
@@ -13,95 +13,28 @@ const palettes = {
 
 const palette = palettes.a;
 
-// Consts
-// const word = "EVERYTHING.IS.FINE";
-// const word = "ZAAHIR.MOOLLA";
-const word = "  DISARRAY  ";
-// const word = "  ZAAHIR  ";
-const wordArr = word.split("");
-
-const cols = wordArr.length - 1;
+const cols = 20;
 const rows = 20;
 const rotateMultiplier = 25;
 const randomDisplacement = 15;
-
-// Loading font
-function preload() {
-  textFontFace = loadFont(
-    "https://cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/fonts/hack-bold.woff"
-  );
-}
 
 function setup() {
   size = windowWidth * 0.8;
   squareSize = floor(size / rows);
 
-  print(squareSize);
-
-  // width = word length + extra column for padding
   createCanvas(squareSize * (cols + 2), size);
 
-  colors.bg = color(`#${palette.bg}`);
-  colors.from = color(`#${palette.from}`);
-  colors.to = color(`#${palette.to}`);
-
-  background(colors.bg);
-  strokeWeight(2);
+  background(255);
+  strokeWeight(1);
   strokeCap(SQUARE);
-
-  angleMode(DEGREES);
 
   rectMode(CENTER);
   noFill();
-
-  textFont(textFontFace);
-  textSize(squareSize);
-  // textStyle(BOLD);
-  textAlign(CENTER, CENTER);
 
   // Must be last line
   noLoop();
 }
 
-function draw() {
-  col = 0;
+function draw() {}
 
-  for (let i = squareSize; col <= cols; i += squareSize) {
-    console.groupCollapsed(i);
-    row = 0;
-    for (let j = squareSize; j <= size - squareSize; j += squareSize) {
-      const amt = map(j, squareSize, size, 0, 1);
-      print(j / size, amt);
-
-      const clr = lerpColor(colors.from, colors.to, amt);
-      stroke(clr);
-      drawSquare(i, j);
-      row++;
-    }
-    console.groupEnd();
-    col++;
-  }
-}
-
-function drawSquare(x, y) {
-  plusOrMinus = random() < 0.5 ? -1 : 1;
-  const rotateAmt =
-    map(y, squareSize, cols * squareSize, 0, 1) *
-    plusOrMinus *
-    random() *
-    rotateMultiplier;
-
-  plusOrMinus = random() < 0.5 ? -1 : 1;
-  const translateAmt = (y / size) * plusOrMinus * random() * randomDisplacement;
-
-  push();
-  translate(x + translateAmt, y + translateAmt);
-  rotate(rotateAmt);
-  translate(-x, -y);
-
-  // square(x, y, squareSize);
-
-  text(wordArr[col], x, y);
-
-  pop();
-}
+function drawSquare(x, y) {}
