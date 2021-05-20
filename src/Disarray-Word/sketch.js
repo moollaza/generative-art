@@ -36,8 +36,6 @@ function setup() {
   size = windowWidth * 0.8;
   squareSize = floor(size / rows);
 
-  print(squareSize);
-
   // width = word length + extra column for padding
   createCanvas(squareSize * (cols + 2), size);
 
@@ -67,18 +65,14 @@ function draw() {
   col = 0;
 
   for (let i = squareSize; col <= cols; i += squareSize) {
-    console.groupCollapsed(i);
     row = 0;
     for (let j = squareSize; j <= size - squareSize; j += squareSize) {
       const amt = map(j, squareSize, size, 0, 1);
-      print(j / size, amt);
-
       const clr = lerpColor(colors.from, colors.to, amt);
       stroke(clr);
       drawSquare(i, j);
       row++;
     }
-    console.groupEnd();
     col++;
   }
 }
@@ -100,7 +94,6 @@ function drawSquare(x, y) {
   translate(-x, -y);
 
   // square(x, y, squareSize);
-
   text(wordArr[col], x, y);
 
   pop();
