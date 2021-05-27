@@ -17,8 +17,6 @@ function setup() {
   strokeWeight(2);
   background("#" + "1f2041");
 
-  // blendMode(ADD);
-
   noFill();
 
   // Must be last line
@@ -51,11 +49,8 @@ function drawSquare(x, y, width, height, xMovement, yMovement, steps) {
   c.setAlpha(15);
   fill(c);
 
-  // if (random() <= 0.05) {
-  // rect(x, y, width, height);
-  // } else {
-  circle(x + width / 2, y + width / 2, width);
-  // }
+  rect(x, y, width, height);
+  // circle(x + width / 2, y + width / 2, width);
 
   if (steps >= 0) {
     var newSize = startSize * (steps / startSteps) + finalSize;
